@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Random Name Extractor</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    canvas {
+      max-width: 400px;
+      margin: 20px auto;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Random Name Extractor</h1>
+  <button onclick="extractRandom()">Extract Random Number</button>
+  <canvas id="histogram"></canvas>
+
+  <script>
+    let counts = {
+      Sebastiano: 0,
+      Simone: 0
+    };
+
+    const ctx = document.getElementById('histogram').getContext('2d');
+    const chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Sebastiano', 'Simone'],
+        datasets: [{
+          label: 'Count',
+          data: [counts.Sebastiano, counts.Simone],
+          backgroundColor: ['#3498db', '#2ecc71']
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            precision: 0
+          }
+        }
+      }
+    });
+
+    function extractRandom() {
+      const rand = Math.random();
+      const name = rand < 0.5 ? 'Sebastiano' : 'Simone';
+      counts[name]++;
+      chart.data.datasets[0].data = [counts.Sebastiano, counts.Simone];
+      chart.update();
+    }
+  </script>
+</body>
+</html>
