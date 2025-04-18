@@ -77,6 +77,7 @@
   <div class="card fade-in">
     <h1>Random Name Extractor</h1>
     <button onclick="extractRandom()">Extract Random Number</button>
+    <button onclick="resetCounts()" style="margin-left: 10px; background-color: #e11d48;">Reset</button>
     <canvas id="histogram"></canvas>
   </div>
 
@@ -120,4 +121,12 @@
       const rand = Math.random();
       const name = rand < 0.5 ? 'Sebastiano' : 'Simone';
       counts[name]++;
-      chart.data.datasets[0].data = [counts.S
+      chart.data.datasets[0].data = [counts.Sebastiano, counts.Simone];
+      chart.update();
+    }
+
+    function resetCounts() {
+        counts = { Sebastiano: 0, Simone: 0 };
+        chart.data.datasets[0].data = [0, 0];
+        chart.update();
+    }
